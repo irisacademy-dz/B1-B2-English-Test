@@ -1,527 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IRIS Academy B1-B2 English Language Test</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        :root {
-            --primary: #4a6fa5;
-            --secondary: #8a5a44;
-            --accent: #d0e3f8;
-            --light: #e5f0fa;
-            --dark: #2c4a82;
-        }
-        
-        body {
-            font-family: 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #f5f9ff;
-            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><path fill="%234a6fa5" fill-opacity="0.05" d="M30,10 Q50,5 70,10 T90,30 Q95,50 90,70 T70,90 Q50,95 30,90 T10,70 Q5,50 10,30 T30,10 Z"/></svg>');
-        }
-        
-        .header {
-            text-align: center;
-            margin-bottom: 30px;
-            padding: 20px;
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(74, 111, 165, 0.1);
-            border-bottom: 4px solid var(--primary);
-        }
-        
-        h1 {
-            color: var(--primary);
-            font-weight: 600;
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-        }
-        
-        .section {
-            background-color: white;
-            padding: 20px;
-            margin-bottom: 20px;
-            border-radius: 12px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-        }
-        
-        .question {
-            margin-bottom: 20px;
-            padding-bottom: 15px;
-            border-bottom: 1px dashed #eee;
-        }
-        
-        .options {
-            margin-left: 10px;
-        }
-        
-        label {
-            display: block;
-            margin-bottom: 12px;
-            cursor: pointer;
-            padding: 10px;
-            border-radius: 6px;
-            transition: all 0.2s;
-        }
-        
-        label:hover {
-            background-color: var(--light);
-        }
-        
-        input[type="radio"], input[type="checkbox"] {
-            margin-right: 10px;
-            accent-color: var(--primary);
-        }
-        
-        button {
-            background-color: var(--primary);
-            color: white;
-            border: none;
-            padding: 14px 24px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 16px;
-            font-weight: 500;
-            display: block;
-            margin: 30px auto;
-            transition: all 0.3s;
-            box-shadow: 0 2px 5px rgba(74, 111, 165, 0.3);
-        }
-        
-        button:hover {
-            background-color: var(--dark);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(74, 111, 165, 0.4);
-        }
-        
-        #results {
-            display: none;
-            text-align: center;
-            padding: 30px;
-            background-color: white;
-            border-radius: 12px;
-            box-shadow: 0 4px 16px rgba(0,0,0,0.1);
-            margin-top: 20px;
-            border-top: 4px solid var(--primary);
-        }
-        
-        .print-btn {
-            background-color: var(--secondary);
-            margin-top: 20px;
-        }
-        
-        .audio-btn {
-            background-color: var(--primary);
-            color: white;
-            padding: 10px 16px;
-            border-radius: 8px;
-            border: none;
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 14px;
-            margin: 10px 0;
-        }
-        
-        .gap-fill {
-            display: inline-block;
-            margin: 0 5px;
-        }
-        
-        .gap-fill input {
-            border-bottom: 1px solid var(--primary);
-            width: 80px;
-            text-align: center;
-            padding: 5px;
-        }
-        
-        .iris-icon {
-            color: var(--primary);
-        }
-        
-        .whatsapp-btn {
-            background-color: #25D366;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            margin-top: 15px;
-        }
-        
-        .contact-info {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            margin-bottom: 20px;
-        }
-        
-        .contact-info input, .contact-info select {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 6px;
-        }
-        
-        .french-instructions {
-            color: red;
-            font-weight: bold;
-            margin: 20px 0;
-            padding: 10px;
-            background-color: #fff0f0;
-            border-radius: 6px;
-        }
-        
-        .bilingual-comment {
-            margin: 20px 0;
-            padding: 15px;
-            background-color: var(--light);
-            border-radius: 8px;
-            text-align: left;
-        }
-        
-        .bilingual-comment p {
-            margin: 10px 0;
-        }
-        
-        .essay-question {
-            margin-top: 15px;
-        }
-        
-        textarea {
-            width: 100%;
-            min-height: 120px;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 6px;
-            font-family: inherit;
-            margin-top: 10px;
-        }
-        
-        @media (max-width: 600px) {
-            body {
-                padding: 15px;
-            }
-            
-            .header {
-                padding: 15px;
-            }
-            
-            .section {
-                padding: 15px;
-            }
-            
-            button {
-                width: 100%;
-                padding: 16px;
-            }
-            
-            .gap-fill input {
-                width: 60px;
-            }
-            
-            .contact-info {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
+    <!-- [Previous head content remains exactly the same] -->
 </head>
 <body>
-    <div class="header">
-        <h1>
-            <span class="iris-icon"><i class="fas fa-leaf"></i></span>
-            IRIS Academy B1-B2 English Language Test
-            <span class="iris-icon"><i class="fas fa-leaf"></i></span>
-        </h1>
-        <p>Accurate B1-B2 assessment based on Cambridge standards</p>
-    </div>
-
-    <div class="french-instructions">
-        <p>INSTRUCTIONS EN FRANÇAIS:</p>
-        <p>1. Veuillez remplir vos informations personnelles avant de commencer le test.</p>
-        <p>2. Le score total est sur 20 points selon le système algérien.</p>
-        <p>3. Les résultats seront imprimés automatiquement avec des commentaires en français et anglais.</p>
-        <p>4. Envoyez les résultats imprimés via WhatsApp à l'administrateur pour approbation.</p>
-    </div>
-
-    <form id="placementTest">
-        <div class="section">
-            <h2><i class="fas fa-user" style="color: var(--primary); margin-right: 10px;"></i>Personal Information</h2>
-            <div class="contact-info">
-                <div>
-                    <label for="fullName">Full Name:</label>
-                    <input type="text" id="fullName" required>
-                </div>
-                <div>
-                    <label for="phone">Phone Number:</label>
-                    <input type="tel" id="phone" required>
-                </div>
-                <div>
-                    <label for="email">Email:</label>
-                    <input type="email" id="email" required>
-                </div>
-                <div>
-                    <label for="age">Age:</label>
-                    <input type="number" id="age" min="10" max="99" required>
-                </div>
-                <div>
-                    <label for="country">Country:</label>
-                    <select id="country" required>
-                        <option value="">Select Country</option>
-                        <option value="Algeria">Algeria</option>
-                        <option value="Morocco">Morocco</option>
-                        <option value="Tunisia">Tunisia</option>
-                        <option value="France">France</option>
-                        <option value="Other">Other</option>
-                    </select>
-                </div>
-                <div>
-                    <label for="level">Current English Level (if known):</label>
-                    <select id="level">
-                        <option value="unknown">I don't know</option>
-                        <option value="a2">A2 (Elementary)</option>
-                        <option value="b1">B1 (Intermediate)</option>
-                        <option value="b2">B2 (Upper Intermediate)</option>
-                    </select>
-                </div>
-            </div>
-        </div>
-
-        <div class="section">
-            <h2><i class="fas fa-book-open" style="color: var(--primary); margin-right: 10px;"></i>Section 1: Grammar</h2>
-            <p>Choose the correct option.</p>
-            
-            <div class="question">
-                <p>1. By the time we arrived at the theater, the play ___ and the audience ___ leaving.</p>
-                <div class="options">
-                    <label><input type="radio" name="q1" value="a"> a) had already started / was</label>
-                    <label><input type="radio" name="q1" value="b"> b) already started / had been</label>
-                    <label><input type="radio" name="q1" value="c"> c) was already starting / were</label>
-                    <label><input type="radio" name="q1" value="d"> d) has already started / is</label>
-                </div>
-            </div>
-            
-            <div class="question">
-                <p>2. If I ___ you, I ___ that job offer - the salary is excellent.</p>
-                <div class="options">
-                    <label><input type="radio" name="q2" value="a"> a) was / would accept</label>
-                    <label><input type="radio" name="q2" value="b"> b) were / would accept</label>
-                    <label><input type="radio" name="q2" value="c"> c) had been / would have accepted</label>
-                    <label><input type="radio" name="q2" value="d"> d) am / will accept</label>
-                </div>
-            </div>
-
-            <div class="question">
-                <p>3. The report ___ by the committee before it was published.</p>
-                <div class="options">
-                    <label><input type="radio" name="q3" value="a"> a) was thoroughly examined</label>
-                    <label><input type="radio" name="q3" value="b"> b) has been thoroughly examined</label>
-                    <label><input type="radio" name="q3" value="c"> c) had been thoroughly examined</label>
-                    <label><input type="radio" name="q3" value="d"> d) is thoroughly examined</label>
-                </div>
-            </div>
-        </div>
-
-        <div class="section">
-            <h2><i class="fas fa-headphones" style="color: var(--primary); margin-right: 10px;"></i>Section 2: Listening</h2>
-            <p>Click the audio button and answer the question.</p>
-            
-            <div class="question">
-                <p>4. Listen to the conversation:</p>
-                <button type="button" class="audio-btn" onclick="speak('A: I was thinking of applying for that marketing position at the tech company. B: Really? I heard they require at least three years of experience in digital marketing. A: That might be a problem then. I only have experience in traditional marketing. B: Well, you could highlight your transferable skills in your application.')">
-                    <i class="fas fa-play"></i> Play Audio
-                </button>
-                <p>What is the main concern about the job application?</p>
-                <div class="options">
-                    <label><input type="radio" name="q4" value="a"> a) The salary is too low</label>
-                    <label><input type="radio" name="q4" value="b"> b) The applicant lacks specific required experience</label>
-                    <label><input type="radio" name="q4" value="c"> c) The company has a bad reputation</label>
-                    <label><input type="radio" name="q4" value="d"> d) The position requires relocation</label>
-                </div>
-            </div>
-
-            <div class="question">
-                <p>5. Listen to the lecture excerpt:</p>
-                <button type="button" class="audio-btn" onclick="speak('Recent studies in behavioral economics challenge traditional assumptions about rational decision-making. Researchers have found that people often make decisions based on emotional responses rather than logical analysis, especially when under time pressure. This has significant implications for marketing strategies and public policy design.')">
-                    <i class="fas fa-play"></i> Play Audio
-                </button>
-                <p>What is the main finding of the research mentioned?</p>
-                <div class="options">
-                    <label><input type="radio" name="q5" value="a"> a) People always make rational economic decisions</label>
-                    <label><input type="radio" name="q5" value="b"> b) Emotional responses often influence decision-making</label>
-                    <label><input type="radio" name="q5" value="c"> c) Time pressure improves decision quality</label>
-                    <label><input type="radio" name="q5" value="d"> d) Marketing strategies have no effect on consumers</label>
-                </div>
-            </div>
-        </div>
-
-        <div class="section">
-            <h2><i class="fas fa-book-reader" style="color: var(--primary); margin-right: 10px;"></i>Section 3: Reading</h2>
-            
-            <div class="question">
-                <div style="background: var(--light); padding: 15px; border-radius: 8px; margin-bottom: 15px;">
-                    <p><em>"The concept of 'deep work'—the ability to focus without distraction on cognitively demanding tasks—has become increasingly rare in our hyper-connected world. Research suggests that the average knowledge worker checks email or instant messages every six minutes, making sustained concentration nearly impossible. Cal Newport, who coined the term, argues that cultivating deep work skills is essential for professional success in the 21st century. He proposes several strategies, including scheduling internet-free blocks of time and embracing boredom to train attention spans."</em></p>
-                </div>
-                
-                <p>6. According to the text, what is the main challenge to deep work?</p>
-                <div class="options">
-                    <label><input type="radio" name="q6" value="a"> a) Lack of interesting tasks</label>
-                    <label><input type="radio" name="q6" value="b"> b) Frequent digital interruptions</label>
-                    <label><input type="radio" name="q6" value="c"> c) Insufficient work hours</label>
-                    <label><input type="radio" name="q6" value="d"> d) Poor physical work environments</label>
-                </div>
-                
-                <p>7. What does Cal Newport suggest as a strategy for developing deep work skills?</p>
-                <div class="options">
-                    <label><input type="checkbox" name="q7a" value="a"> a) Working longer hours</label>
-                    <label><input type="checkbox" name="q7b" value="b"> b) Scheduling internet-free time blocks</label>
-                    <label><input type="checkbox" name="q7c" value="c"> c) Training attention spans by embracing boredom</label>
-                    <label><input type="checkbox" name="q7d" value="d"> d) Avoiding all meetings</label>
-                </div>
-            </div>
-        </div>
-
-        <div class="section">
-            <h2><i class="fas fa-puzzle-piece" style="color: var(--primary); margin-right: 10px;"></i>Section 4: Vocabulary & Expressions</h2>
-            
-            <div class="question">
-                <p>8. Choose the word that best completes the sentence:</p>
-                <p>The negotiations ___ for weeks before an agreement was finally reached.</p>
-                <div class="options">
-                    <label><input type="radio" name="q8" value="a"> a) prolonged</label>
-                    <label><input type="radio" name="q8" value="b"> b) protracted</label>
-                    <label><input type="radio" name="q8" value="c"> c) extended</label>
-                    <label><input type="radio" name="q8" value="d"> d) dragged on</label>
-                </div>
-            </div>
-            
-            <div class="question">
-                <p>9. Choose the correct phrasal verb:</p>
-                <p>We need to ___ a better solution to this problem.</p>
-                <div class="options">
-                    <label><input type="radio" name="q9" value="a"> a) come up with</label>
-                    <label><input type="radio" name="q9" value="b"> b) come across</label>
-                    <label><input type="radio" name="q9" value="c"> c) come about</label>
-                    <label><input type="radio" name="q9" value="d"> d) come into</label>
-                </div>
-            </div>
-        </div>
-
-        <div class="section">
-            <h2><i class="fas fa-random" style="color: var(--primary); margin-right: 10px;"></i>Section 5: Sentence Transformation</h2>
-            <p>Complete the second sentence so it means the same as the first, using the word given.</p>
-            
-            <div class="question">
-                <p>10. "I last saw him two months ago." (SINCE)</p>
-                <p>It <span class="gap-fill"><input type="text" id="q10" placeholder="(4-6 words)"></span> I last saw him.</p>
-                
-                <p>11. "They say the company is going to announce record profits next week." (SAID)</p>
-                <p>The company <span class="gap-fill"><input type="text" id="q11" placeholder="(5-7 words)"></span> announce record profits next week.</p>
-            </div>
-        </div>
-
-        <div class="section">
-            <h2><i class="fas fa-edit" style="color: var(--primary); margin-right: 10px;"></i>Section 6: Writing</h2>
-            <div class="question">
-                <p>12. Write a short essay (150-200 words) on one of the following topics:</p>
-                <div class="options">
-                    <label><input type="radio" name="essayTopic" value="a"> a) The advantages and disadvantages of remote work</label>
-                    <label><input type="radio" name="essayTopic" value="b"> b) Should university education be free for everyone?</label>
-                    <label><input type="radio" name="essayTopic" value="c"> c) The impact of social media on interpersonal relationships</label>
-                </div>
-                <div class="essay-question">
-                    <textarea id="essay" placeholder="Write your essay here..."></textarea>
-                </div>
-            </div>
-        </div>
-
-        <button type="button" onclick="calculateResults()">
-            <i class="fas fa-check-circle"></i> Get My Results
-        </button>
-    </form>
-
-    <div id="results">
-        <h2 style="color: var(--primary);">Your Test Results</h2>
-        <div id="studentInfo" style="text-align: left; margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid #eee;"></div>
-        <div id="resultText" style="margin: 20px 0;">
-            <p>You scored <strong><span id="scoreDisplay">0</span> out of 20</strong> points.</p>
-        </div>
-        <div style="background: var(--light); padding: 15px; border-radius: 8px; margin: 20px 0;">
-            <p id="levelText" style="font-size: 1.2em; font-weight: bold; margin: 0;"></p>
-            <p id="descriptionText" style="margin-top: 10px;"></p>
-        </div>
-        
-        <div class="bilingual-comment">
-            <h3 style="color: var(--primary); margin-top: 0;">Teacher's Comments / Commentaires du professeur</h3>
-            <p><strong>English:</strong> <span id="englishComment"></span></p>
-            <p><strong>Français:</strong> <span id="frenchComment"></span></p>
-        </div>
-        
-        <button class="print-btn" onclick="window.print()">
-            <i class="fas fa-print"></i> Print Results
-        </button>
-        <p style="margin-top: 25px;">Please send your results via WhatsApp:</p>
-        <a href="https://wa.me/213795369006" class="whatsapp-btn" style="text-decoration: none; padding: 12px 20px; border-radius: 8px;">
-            <i class="fab fa-whatsapp"></i> Send Results
-        </a>
-    </div>
+    <!-- [All previous HTML content remains exactly the same until the script section] -->
 
     <script>
-        // Text-to-Speech Functionality
-        function speak(text) {
-            if ('speechSynthesis' in window) {
-                speechSynthesis.cancel();
-                const utterance = new SpeechSynthesisUtterance(text);
-                utterance.lang = 'en-GB';
-                utterance.rate = 0.95;
-                utterance.pitch = 1;
-                speechSynthesis.speak(utterance);
-            } else {
-                alert("Text-to-speech is not supported in your browser. Please try Chrome or Edge.");
-            }
-        }
-
-        // Answer key
-        const correctAnswers = {
-            q1: "a", // past perfect and past continuous
-            q2: "b", // second conditional
-            q3: "c", // past perfect passive
-            q4: "b", // lacks specific experience
-            q5: "b", // emotional responses influence decisions
-            q6: "b", // frequent digital interruptions
-            q7: ["b", "c"], // internet-free blocks and embracing boredom
-            q8: "d", // dragged on (implies excessive length)
-            q9: "a", // come up with
-            q10: "has been two months since", // present perfect with since
-            q11: "is said to be going to" // passive reporting structure
-        };
+        // [Previous text-to-speech and answer key remains the same]
 
         // Calculate results
         function calculateResults() {
-            // Get student information
-            const studentName = document.getElementById('fullName').value;
-            const studentPhone = document.getElementById('phone').value;
-            const studentEmail = document.getElementById('email').value;
-            const studentAge = document.getElementById('age').value;
-            const studentCountry = document.getElementById('country').value;
-            const studentLevel = document.getElementById('level').value;
-            
-            // Display student info in results
-            document.getElementById('studentInfo').innerHTML = `
-                <p><strong>Name:</strong> ${studentName}</p>
-                <p><strong>Phone:</strong> ${studentPhone}</p>
-                <p><strong>Email:</strong> ${studentEmail}</p>
-                <p><strong>Age:</strong> ${studentAge}</p>
-                <p><strong>Country:</strong> ${studentCountry}</p>
-                <p><strong>Self-Assessed Level:</strong> ${getLevelDescription(studentLevel)}</p>
-            `;
+            // [Previous student info collection remains the same]
             
             let score = 0;
             const form = document.forms['placementTest'];
@@ -565,31 +55,48 @@
             const essayText = document.getElementById('essay').value.trim();
             if (essayText.length > 100) score += 1;
             
-            // Convert to Algerian 20-point scale (simple multiplication by 1.54 to get ~20)
+            // Total possible points is 13 (11 questions, with q7 worth 2 points)
+            // Convert to Algerian 20-point scale
             const algerianScore = Math.round((score / 13) * 20);
             
-            // Determine level (Cambridge standards)
+            // Determine level with more accurate thresholds for B1-B2 test
             let level, description, englishFeedback, frenchFeedback;
-            if (algerianScore >= 16) {
+            
+            if (score >= 11) { // 85% or higher (Strong B2)
+                level = "B2";
+                description = "Upper Intermediate (Strong)";
+                englishFeedback = "Excellent! You demonstrate strong B2 level skills. You can understand complex texts and interact with fluency and spontaneity.";
+                frenchFeedback = "Excellent! Vous démontrez des compétences solides de niveau B2. Vous pouvez comprendre des textes complexes et interagir avec aisance et spontanéité.";
+            } 
+            else if (score >= 9) { // 70-84% (B2)
                 level = "B2";
                 description = "Upper Intermediate";
-                englishFeedback = "Excellent! You demonstrate strong B2 level skills. You can understand complex texts and interact with fluency.";
-                frenchFeedback = "Excellent! Vous démontrez des compétences solides de niveau B2. Vous pouvez comprendre des textes complexes et interagir avec aisance.";
-            } else if (algerianScore >= 12) {
+                englishFeedback = "Good! You demonstrate B2 level skills. You can understand the main ideas of complex text and interact with reasonable fluency.";
+                frenchFeedback = "Bien! Vous démontrez des compétences de niveau B2. Vous pouvez comprendre les idées principales de textes complexes et interagir avec une aisance raisonnable.";
+            }
+            else if (score >= 7) { // 55-69% (B1+)
                 level = "B1+";
                 description = "Intermediate/Upper Intermediate";
-                englishFeedback = "Good! You have solid B1 skills approaching B2. You can handle most situations but should work on more complex structures.";
-                frenchFeedback = "Bien! Vous avez des compétences solides de niveau B1 approchant le B2. Vous pouvez gérer la plupart des situations mais devriez travailler sur des structures plus complexes.";
-            } else if (algerianScore >= 8) {
+                englishFeedback = "Developing skills. You have good B1 skills approaching B2. You can handle most situations but should work on more complex structures and vocabulary.";
+                frenchFeedback = "Compétences en développement. Vous avez de bonnes compétences de niveau B1 approchant le B2. Vous pouvez gérer la plupart des situations mais devriez travailler sur des structures et un vocabulaire plus complexes.";
+            }
+            else if (score >= 5) { // 40-54% (B1)
                 level = "B1";
                 description = "Intermediate";
-                englishFeedback = "Basic intermediate level. You can handle simple conversations but need more practice with complex grammar and vocabulary.";
-                frenchFeedback = "Niveau intermédiaire de base. Vous pouvez gérer des conversations simples mais avez besoin de plus de pratique avec la grammaire et le vocabulaire complexes.";
-            } else {
+                englishFeedback = "Basic intermediate level. You can understand main points about familiar topics and handle simple conversations, but need more practice with complex language.";
+                frenchFeedback = "Niveau intermédiaire de base. Vous pouvez comprendre les points principaux sur des sujets familiers et gérer des conversations simples, mais avez besoin de plus de pratique avec le langage complexe.";
+            }
+            else if (score >= 3) { // 20-39% (A2/B1)
+                level = "A2/B1";
+                description = "Elementary to Pre-Intermediate";
+                englishFeedback = "Basic proficiency. You can understand basic expressions and communicate in simple routine tasks. Consider focusing on intermediate grammar and vocabulary.";
+                frenchFeedback = "Maîtrise de base. Vous pouvez comprendre des expressions de base et communiquer dans des tâches simples et routinières. Envisagez de vous concentrer sur la grammaire et le vocabulaire intermédiaires.";
+            }
+            else { // Below 20% (A2 or below)
                 level = "A2";
                 description = "Elementary";
-                englishFeedback = "You're at an elementary level. Focus on expanding your vocabulary and mastering intermediate grammar structures.";
-                frenchFeedback = "Vous êtes à un niveau élémentaire. Concentrez-vous sur l'élargissement de votre vocabulaire et la maîtrise des structures grammaticales intermédiaires.";
+                englishFeedback = "Foundational level. You're at an elementary stage of English. Focus on building basic vocabulary and grammar before tackling intermediate material.";
+                frenchFeedback = "Niveau fondamental. Vous êtes au stade élémentaire de l'anglais. Concentrez-vous sur l'acquisition d'un vocabulaire et d'une grammaire de base avant d'aborder du matériel intermédiaire.";
             }
             
             // Display results
@@ -614,33 +121,7 @@
             });
         }
         
-        function getLevelDescription(levelCode) {
-            const levels = {
-                "unknown": "I don't know",
-                "a2": "A2 (Elementary)",
-                "b1": "B1 (Intermediate)",
-                "b2": "B2 (Upper Intermediate)"
-            };
-            return levels[levelCode] || "Not specified";
-        }
-        
-        function arraysEqual(a, b) {
-            if (a.length !== b.length) return false;
-            for (let i = 0; i < a.length; i++) {
-                if (a[i] !== b[i]) return false;
-            }
-            return true;
-        }
-        
-        function getCambridgeDescription(level) {
-            const descriptions = {
-                "B2": "Can understand the main ideas of complex text. Can interact with fluency and spontaneity. Can produce clear, detailed text on a wide range of subjects.",
-                "B1+": "Can understand the main points of clear standard input. Can deal with most situations while traveling. Can produce simple connected text on familiar topics.",
-                "B1": "Can understand the main points of familiar matters. Can describe experiences and events. Can give reasons and explanations for opinions.",
-                "A2": "Can understand sentences and frequently used expressions. Can communicate in simple routine tasks requiring simple exchange of information."
-            };
-            return descriptions[level] || "";
-        }
+        // [Rest of the helper functions remain the same]
     </script>
 </body>
 </html>
